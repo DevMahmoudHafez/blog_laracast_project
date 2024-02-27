@@ -46,14 +46,36 @@ class Post
         });
 
         return $posts;
+
+
+        //using array_map function..
+//    $posts= array_map(function($file){
+//        $content= YamlFrontMatter::parseFile($file);
+//        return new Post(
+//            $content->title,$content->slug,$content->excerpt,
+//            $content->date,$content->body()
+//        );
+//    },$files);
+
+        //using for each
+//    foreach ($files as $file){
+//        $content= YamlFrontMatter::parseFile($file);
+//        $posts[]=new Post(
+//            $content->title,$content->slug,$content->excerpt,
+//            $content->date,$content->body()
+//        );
+//    }
     }
     public static function find($slug){
 
                 //here we will get the post with the slug content in the file
 
-        $posts=static::all();
+        $post=static::all()->firstWhere('slug',$slug);
 
-        return $posts->firstWhere('slug',$slug);
+        if(!$post){
+            throw new ModelNotFoundException();
+        }
+        return $post;
                 //here we find post with the file name
 //    $path=resource_path("posts/{$slug}.html");
 //    if(!file_exists($path)){
