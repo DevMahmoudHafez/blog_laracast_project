@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
 
         // here the attribute u pass with the function create() will override the attribute in the main function .
         // and when we pass the user id .. the post factory don't need to make the 5 users as we pass the id already
-        $user =User::factory()->create([
-            'name'=>'Mahmoud Hafez',
+       User::factory()->create([
+
         ]);
-        Post::factory(5)->create([
-            'user_id'=>$user->id,
+        Post::factory(10)->create([
+
         ]);
 //        User::truncate();
 //        Post::truncate();
