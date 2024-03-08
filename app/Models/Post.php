@@ -15,11 +15,29 @@ class Post extends Model
 
     public function scopeFilter($query,array $filters)
     {
+        //dd($filters);
         $query->when($filters['search']??false,function($query,$search){
-            $query->where('title', 'like', '%' . $search . '%')
-                ->orwhere('body', 'like', '%' . $search . '%');
+            $query->where(fn($query)=>
+                $query->where('title', 'like', '%' . $search . '%')
+                ->orwhere('body', 'like', '%' . $search . '%'));
         });
+        $query->when($filters['category']??false, fn($query,$category)=>
+            $query->whereHas('category',fn($query)=>
+            $query->where('slug',$category))
 
+        //this is with simple sql queries
+//            $query->whereExists(fn ($query)=>
+//                    $query->from('categories')
+//                        ->whereColumn('categories.id','posts.category_id')
+//                        ->where('categories.slug',$category)
+//                )
+        );
+        $query->when($filters['author']??false, fn($query,$author)=>
+        $query->whereHas('author',fn($query)=>
+        $query->where('username',$author))
+
+
+        );
     }
     function getRouteKeyName()
     {
