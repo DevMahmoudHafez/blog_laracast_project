@@ -16,11 +16,11 @@
         </button>
     </x-slot>
 
-    <x-dropdown-item href="/">
+    <x-dropdown-item href="/?{{http_build_query(request()->except('category','page'))}}">
         All
     </x-dropdown-item>
     @foreach($categories as $category)
-        <x-dropdown-item href="/?category={{$category->slug}}&{{http_build_query(request()->except('category'))}}" class="{{isset($current_category) && $current_category->is($category) ? 'bg-blue-500 text-white': ''}}">
+        <x-dropdown-item href="/?category={{$category->slug}}&{{http_build_query(request()->except('category','page'))}}" class="{{isset($current_category) && $current_category->is($category) ? 'bg-blue-500 text-white': ''}}">
             {{ucwords($category->name)}}</a></x-dropdown-item>
 
     @endforeach

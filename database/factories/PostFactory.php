@@ -21,8 +21,8 @@ class PostFactory extends Factory
         return [
             'title'=>$this->faker->sentence,
             'slug'=>$this->faker->slug,
-            'category_id'=>Category::factory(),
-            'user_id'=>User::factory(),
+            'category_id'=>'2',
+            'user_id'=>'2',
             'excerpt'=>$this->faker->sentence,
             'body'=>'<p>'.$this->faker->paragraph.'</p>',
             'published_at'=>now(),
