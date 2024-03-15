@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
@@ -21,6 +22,27 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::post('newsletter',function (){
+    request()->validate(['email'=>'required|email']);
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+
+    $mailchimp->setConfig([
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us18'
+    ]);
+    try{
+        $response = $mailchimp->lists->addListMember('81912ff90a',[
+            'email_address'=>request('email'),
+            'status'=>'subscribed',
+        ]);
+    }catch (\Exception $e){
+        throw ValidationException::withMessages([
+            'email'=>'this email could not be in our list'
+        ]);
+    }
+
+    return redirect('/')->with('success','You are now in our newsletter!');
+});
 
 Route::get('/', [PostController::class,'index']);
 
