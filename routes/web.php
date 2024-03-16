@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
@@ -22,27 +23,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::post('newsletter',function (){
-    request()->validate(['email'=>'required|email']);
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us18'
-    ]);
-    try{
-        $response = $mailchimp->lists->addListMember('81912ff90a',[
-            'email_address'=>request('email'),
-            'status'=>'subscribed',
-        ]);
-    }catch (\Exception $e){
-        throw ValidationException::withMessages([
-            'email'=>'this email could not be in our list'
-        ]);
-    }
-
-    return redirect('/')->with('success','You are now in our newsletter!');
-});
+Route::post('newsletter',NewsletterController::class);
 
 Route::get('/', [PostController::class,'index']);
 
@@ -57,6 +38,9 @@ Route::get('login',[SessionsController::class,'create'])->middleware('guest');
 Route::post('login',[SessionsController::class,'store'])->middleware('guest');
 Route::post('logout',[SessionsController::class,'destroy'])->middleware('auth');
 
+
+Route::get('admin/posts/create',[PostController::class,'create'])->middleware('admin');
+Route::post('admin/posts',[PostController::class,'store'])->middleware('admin');
 //Route::get('/categories/{category:slug}',function (Category $category){
 //    return view('posts',[
 //        'posts'=> $category->posts,

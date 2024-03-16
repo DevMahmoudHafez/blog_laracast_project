@@ -44,10 +44,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getUsernameAttribute($username)
-    {
-        return ucwords($username);
-    }
+//    public function getUsernameAttribute($username)
+//    {
+//        return ucwords($username);
+//    }
 
     public function setPasswordAttribute($password)
     {

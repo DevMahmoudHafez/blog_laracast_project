@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,8 +19,20 @@ class DatabaseSeeder extends Seeder
 
         // here the attribute u pass with the function create() will override the attribute in the main function .
         // and when we pass the user id .. the post factory don't need to make the 5 users as we pass the id already
-       //User::factory()->create([]);
-        Post::factory(10)->create();
+        //User::factory()->create([]);
+        $numofrows=15;
+        for ($I = 0; $I < $numofrows; $I++){
+        $user = User::factory()->create();
+        $category = Category::factory()->create();
+        $post = Post::factory()->create([
+            'user_id' => $user->id,
+            'category_id' => $category->id
+        ]);
+        Comment::factory(3)->create([
+            'post_id'=>$post->id,
+            'user_id'=>$user->id,
+        ]);
+        }
 //        User::truncate();
 //        Post::truncate();
 //        Category::truncate();
