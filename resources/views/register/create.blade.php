@@ -1,4 +1,4 @@
-<x-layout>
+@extends('layout')
     @section('content')
         <section class="px-6 py-8 mt-8">
             <main class="max-w-lg mx-auto border border-gray-200 bg-gray-100 rounded-xl p-6">
@@ -72,4 +72,4 @@
 
         </section>
     @endsection
-</x-layout>
+
