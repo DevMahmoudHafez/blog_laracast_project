@@ -1,7 +1,7 @@
 <!doctype html>
 
 <title>Laravel From Scratch Blog</title>
-<link rel="stylesheet" href="/css/tailwind.css">
+<link rel="stylesheet" href="{{asset('/css/tailwind.css')}}">
 {{--<link rel="stylesheet" href="/css/app.css">--}}
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
