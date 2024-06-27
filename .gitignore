@@ -7,8 +7,8 @@
 /vendor
 .env
 .env.example
-.htaccess
-.server.php
+/.htaccess
+/server.php
 .env.backup
 .env.production
 .phpunit.result.cache
