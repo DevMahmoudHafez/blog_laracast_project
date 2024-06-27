@@ -2,9 +2,8 @@
 
 <title>Laravel From Scratch Blog</title>
 
-<link rel="stylesheet" href="{{asset('/css/tailwind.css')}}">
-{{--<link rel="stylesheet" href="/css/app.css">--}}
-
+<link rel="stylesheet" href="{{ asset('/css/tailwind.css') }}">
+{{-- <link rel="stylesheet" href="/css/app.css"> --}}
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,8 +20,8 @@
 
             <div class="mt-8 md:mt-0 flex items-center">
                 @guest
-                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
-                    <a href="/login" class="text-xs font-bold uppercase pl-6">login</a>
+                    <a href="{{ route('register') }}" class="text-xs font-bold uppercase">Register</a>
+                    <a href="{{ route('login') }}" class="text-xs font-bold uppercase pl-6">login</a>
                 @else
                     <x-dropdown>
                         <x-slot:trigger>
